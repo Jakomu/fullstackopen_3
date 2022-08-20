@@ -46,11 +46,14 @@ app.get("/api/persons", (req, res) => {
 });
 
 app.get("/info", (req, res) => {
-  const personAmount = persons.length;
   const time = Date();
-  res.send(
-    `Phonebook has info for ${personAmount} people` + "<br/><br/>" + `${time}`
-  );
+  Person.find({}).then((persons) => {
+    res.send(
+      `Phonebook has info for ${persons.length} people` +
+        "<br/><br/>" +
+        `${time}`
+    );
+  });
 });
 
 app.get("/api/persons/:id", (req, res, next) => {
